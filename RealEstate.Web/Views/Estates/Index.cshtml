@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RealEstate.Core.Domain.Estate>
+@using RealEstate.Core.Enum
+@{
+	ViewData["Title"] = "لیست املاک";
+}
+
+<h4>لیست املاک ثبت شده</h4>
+<br />
+
+<form method="get" asp-controller="Estates" asp-action="Index">
+	<div class="form-group">
+		<label class="control-label"></label>
+		<input name="term" type="text" placeholder="عبارت جستجو" class="form-control">
+	</div>
+	<div class="form-group">
+		<input type="submit" value="جستجو" class="btn btn-primary" />
+	</div>
+
+</form>
+
+
+<p>
+	<a asp-action="Create">ثبت ملک جدید</a>
+</p>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Address)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Area)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.EstateType)
+			</th> 
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Area)
+				</td>
+				<td>
+					@EnumTypes.GetDescription(item.EstateType)
+				</td> 
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

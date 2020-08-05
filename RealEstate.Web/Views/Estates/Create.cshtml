@@ -1,0 +1,61 @@
+﻿@model RealEstate.Core.Domain.Estate
+@using RealEstate.Core.Enum
+@{
+    ViewData["Title"] = "ثبت ملک";
+}
+
+<h4>ثبت ملک</h4>
+ 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="OwnerId" class="control-label"></label>
+				<select asp-for="OwnerId" class="form-control" asp-items="ViewBag.OwnerId"></select>
+			</div>
+			<div class="form-group">
+				<label asp-for="Address" class="control-label"></label>
+				<input asp-for="Address" class="form-control" />
+				<span asp-validation-for="Address" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Area" class="control-label"></label>
+				<input asp-for="Area" class="form-control" />
+				<span asp-validation-for="Area" class="text-danger"></span>
+			</div> 
+			<div class="form-group">
+				@{
+					var types = EnumTypes.GetEnumValuesAndDescriptions<EnumTypes.EstateType>();
+					var selectItems = types.Select(value =>
+						new SelectListItem()
+						{
+							Text = value.Key,
+							Value = value.Value.ToString() 
+						}).ToList();
+				}
+				<label asp-for="EstateType" class="control-label"></label>
+				<select asp-for="EstateType" asp-items="@selectItems" class="form-control" data-live-search="true" style="margin: 0 0 16px 0;"></select>
+				<span asp-validation-for="EstateType" class="text-danger"></span>
+			</div>
+		 
+			<div class="form-group">
+				<input type="submit" value="ثبت" class="btn btn-primary" />
+			</div>
+		</form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">بازگشت</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
