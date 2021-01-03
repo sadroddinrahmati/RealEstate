@@ -30,7 +30,7 @@ namespace RealEstate.Infrastructure
 
             builder.Entity<Owner>()
                .HasData(
-                   new Owner { OwnerId = 1, Name = "صدرالدین", LastName = "رحمتی", Mobile = "09481317468" } 
+                   new Owner { OwnerId = 1, Name = "محمد رضا", LastName = "ترابی", Mobile = "09481317468" } 
                );
         }
     }
@@ -39,7 +39,8 @@ namespace RealEstate.Infrastructure
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=RealEstateDB;Integrated Security=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(
+                "Data Source=.;Initial Catalog=RealEstateDB;Integrated Security=True;");
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }
